@@ -1,0 +1,34 @@
+{
+  "name": "saxmlp",
+  "version": "0.0.1",
+  "description": "A wrapper for SaXPath and SaX intented to simplify XML parsing. Nothing new. You don't need this module, probably.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vladimir Neverov <sanguini@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "sax": "~0.6.0",
+    "saxpath": "~0.6.1",
+    "libxmljs": "~0.11.0",
+    "xml2js": "~0.4.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vne/saxmlp.git"
+  },
+  "keywords": [
+    "XML",
+    "parsing",
+    "xpath",
+    "SaX",
+    "SaXPath",
+    "libxmljs",
+    "validation"
+  ],
+  "bugs": {
+    "url": "https://github.com/vne/saxmlp/issues"
+  },
+  "homepage": "https://github.com/vne/saxmlp"
+}

@@ -1,4 +1,4 @@
-var sax      = require('sax'),
+var sax 	 = require('sax'),
 	saxpath  = require('saxpath'),
 	xml2js   = require('xml2js'),
 	libxmljs = require('libxmljs'), // for validation only TODO: think about using SAX instead
@@ -16,7 +16,7 @@ function SaxmlpList(list, settings) {
 	} else {
 		this.list = list.map(function(x) { return new Saxmlp(x.contents, settings); });
 	}
-	this.settings = settings;
+	this.settings = settings || {};
 	this.onEnd = [];
 }
 SaxmlpList.prototype.on = function(tag, handler) {
@@ -55,7 +55,7 @@ function Saxmlp(data, settings) {
 	}
 	this.stream = new StreamVariable(this.data);
 	this.parser = sax.createStream(true);
-	this.settings = settings;
+	this.settings = settings || {};
 	this.tags = {};
 	this.streamers = {};
 	this.onEnd = [];
@@ -145,7 +145,7 @@ Saxmlp.prototype.getMatcher = function(tag) {
 	var self = this;
 	return function(xml) {
 		if (!self.tags[tag]) { return; }
-		var js = xml2js.parseString(xml, function(err, result) {
+		var js = xml2js.parseString(xml, self.settings.xml2js || {}, function(err, result) {
 			if (err) { throw err; }
 			_call(self.tags[tag], result);
 		})

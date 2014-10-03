@@ -1,12 +1,15 @@
 {
   "name": "saxmlp",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A wrapper for SaXPath and SaX intented to simplify XML parsing. Nothing new. You don't need this module, probably.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Vladimir Neverov <sanguini@gmail.com>",
+  "author": {
+    "name": "Vladimir Neverov",
+    "email": "sanguini@gmail.com"
+  },
   "license": "MIT",
   "dependencies": {
     "sax": "~0.6.0",
@@ -30,5 +33,11 @@
   "bugs": {
     "url": "https://github.com/vne/saxmlp/issues"
   },
-  "homepage": "https://github.com/vne/saxmlp"
+  "homepage": "https://github.com/vne/saxmlp",
+  "readme": "saxmlp\n======\n\nA wrapper for SaXPath and SaX intented to simplify XML parsing. Nothing new. You don't need this module, probably.\n\nWritten by Vladimir Neverov <sanguini@gmail.com> in 2014.\n\n",
+  "readmeFilename": "README.md",
+  "gitHead": "2247a3b9c1a1fe70acbbb6a2ecbb6d7bbacd9b4e",
+  "_id": "saxmlp@0.0.1",
+  "_shasum": "e3e629b8c2fa38a30da53501769fac36968dd4bb",
+  "_from": "saxmlp@"
 }

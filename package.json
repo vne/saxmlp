@@ -1,6 +1,6 @@
 {
   "name": "saxmlp",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A wrapper for SaXPath and SaX intented to simplify XML parsing. Nothing new. You don't need this module, probably.",
   "main": "index.js",
   "scripts": {

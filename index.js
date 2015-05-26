@@ -147,15 +147,15 @@ Saxmlp.prototype.getMatcher = function(tag) {
 		if (!self.tags[tag]) { return; }
 		var js = xml2js.parseString(xml, self.settings.xml2js || {}, function(err, result) {
 			if (err) { throw err; }
-			_call(self.tags[tag], result);
+			_call(self.tags[tag], result, xml);
 		})
 	}
 }
 
 
-function _call(list, context) {
+function _call(list, context, xml) {
 	for (var i in list) {
-		list[i](context);
+		list[i](context, xml);
 	}
 }
 

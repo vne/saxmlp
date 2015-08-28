@@ -11,13 +11,16 @@ module.exports.Saxmlp = Saxmlp;
 module.exports.List = SaxmlpList;
 
 function SaxmlpList(list, settings) {
-	if (list.constructor !== Array) {
+	if (list && list.constructor !== Array) {
 		this.list = [ new Saxmlp(list, settings) ];
+	} else if (list) {
+		this.list = list.map(function(x) { return new Saxmlp(x.contents, settings, x); });
 	} else {
-		this.list = list.map(function(x) { return new Saxmlp(x.contents, settings); });
+		this.list = [];
 	}
 	this.settings = settings || {};
 	this.onEnd = [];
+	this.onNextFile = [];
 }
 SaxmlpList.prototype.on = function(tag, handler) {
 	this.list.map(function(x) { return x.on(tag, handler); })
@@ -25,6 +28,10 @@ SaxmlpList.prototype.on = function(tag, handler) {
 }
 SaxmlpList.prototype.off = function(tag, handler) {
 	this.list.map(function(x) { return x.off(tag, handler); })
+	return this;
+}
+SaxmlpList.prototype.nextFile = function(handler) {
+	this.onNextFile.push(handler);
 	return this;
 }
 SaxmlpList.prototype.end = function(handler) {
@@ -40,7 +47,10 @@ SaxmlpList.prototype.parse = function() {
 		list = this.list.slice(0),
 		next = function() {
 			if (!list.length) { return _call(self.onEnd); }
-			list.shift().end(next).parse();
+			var sxinst = list.shift();
+			var entry = sxinst.getEntry();
+			_call(self.onNextFile, entry, sxinst);
+			sxinst.end(next).parse();
 		}
 	next();
 }
@@ -49,10 +59,11 @@ SaxmlpList.prototype.validate = function(schemas, task) {
 }
 
 
-function Saxmlp(data, settings) {
+function Saxmlp(data, settings, entry) {
 	if (data) {
 		this.data = (data.toString ? data.toString() : data).replace("\ufeff", "");
 	}
+	this.entry = entry;
 	this.stream = new StreamVariable(this.data);
 	this.parser = sax.createStream(true);
 	this.settings = settings || {};
@@ -63,6 +74,9 @@ function Saxmlp(data, settings) {
 	var self = this;
 	this.stream.on('end', function() { _call(self.onEnd); });
 	this.parser.onerror = function(msg) { _call(self.onError); }
+}
+Saxmlp.prototype.getEntry = function() {
+	return this.entry;
 }
 Saxmlp.prototype.on = function(tag, handler) {
 	if (!tag || !handler) { return; }

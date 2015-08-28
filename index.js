@@ -1,7 +1,7 @@
 var sax 	 = require('sax'),
 	saxpath  = require('saxpath'),
 	xml2js   = require('xml2js'),
-	libxmljs = require('libxmljs'), // for validation only TODO: think about using SAX instead
+	// libxmljs = require('libxmljs'), // for validation only TODO: think about using SAX instead
 	stream   = require('stream'),
 	util     = require('util'),
 	fs       = require('fs');
@@ -122,6 +122,7 @@ Saxmlp.prototype.validate = function(schemas, task) {
         is_valid = false,
         errh = task.error ? task.error : task, // for compatibility
         schema, xsd, i;
+    return true; // libxmljs does not work TODO: think of using another library
     try {
          xml = libxmljs.parseXml(this.data);
     } catch(e) {
